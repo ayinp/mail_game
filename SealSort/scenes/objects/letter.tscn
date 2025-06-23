@@ -8,7 +8,7 @@
 size = Vector2(150, 88.922)
 
 [node name="letter" type="Area2D"]
-z_index = 10
+z_index = 5
 script = ExtResource("1_1qx34")
 
 [node name="Sprite" type="Sprite2D" parent="."]

@@ -1,13 +1,8 @@
-extends Node2D
-const LetterScene = preload("res://scenes/objects/letter.tscn")
+extends Node
+class_name LetterFactoryYay
 
+var LetterScene := preload("res://scenes/objects/letter.tscn")
 
-@onready var desk_loc: Vector2
-
-
-func _ready():
-	desk_loc = $".".global_position
-	spawn_random_letter();
 
 var all_letters = [
 	{"seal_name": "Emberhold", "element": "fire", "type": "resolution"},
@@ -28,13 +23,33 @@ var all_letters = [
 ]
 
 
-func spawn_letter(data: Dictionary):
+func get_letter_by_seal(seal_name: String) -> Variant:
+	for letter in all_letters:
+		if letter["seal_name"] == seal_name:
+			return letter
+	return null
+
+
+func spawn_letter(data: Dictionary) -> Node:
 	var letter = LetterScene.instantiate()
 	letter.seal_name = data["seal_name"]
 	letter.element = data["element"]
 	letter.type = data["type"]
+	if data.has("level"):
+		letter.level = data["level"]
+
+	# Add to scene
 	get_node("/root/MainGame/LetterLayer").add_child(letter)
-	letter.position = $letterSpawn.global_position
+	letter.position = Vector2.ZERO
+
+	# Bounce outward
+	var angle = randf_range(0, TAU)  # TAU is 2π — full circle
+	var distance = randf_range(100, 200)
+	var target_pos = letter.position + Vector2.RIGHT.rotated(angle) * distance
+
+	var tween = create_tween()
+	tween.tween_property(letter, "position", target_pos, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
 	return letter
 
 
@@ -64,11 +79,29 @@ func spawn_letter_element_type(element: String, type: String):
 	return spawn_letter(filtered[randi() % filtered.size()])
 
 func spawn_letter_all(seal_name: String, element: String, type: String):
-	var exact = all_letters.find(func(l): return l["seal_name"] == seal_name and l["element"] == element and l["type"] == type)
-	if exact == null:
-		push_warning("No exact match for %s / %s / %s" % [seal_name, element, type])
+	for letter in all_letters:
+		if letter["seal_name"] == seal_name and letter["element"] == element and letter["type"] == type:
+			return spawn_letter(letter)
+
+	push_warning("No exact match for %s / %s / %s" % [seal_name, element, type])
+	return null
+
+	
+	
+func spawn_letter_from_set(allowed_seals: Array) -> Node:
+	if allowed_seals.is_empty():
+		push_warning("Tried to spawn letter from empty set!")
 		return null
-	return spawn_letter(exact)
 
+	# Choose one entry randomly
+	var data = allowed_seals[randi() % allowed_seals.size()]
 
+	# Support both full dictionaries or just seal_name strings
+	if typeof(data) == TYPE_STRING:
+		data = get_letter_by_seal(data)
+		if data == null:
+			push_warning("Seal not found in all_letters!")
+			return null
+
+	return spawn_letter(data)
 

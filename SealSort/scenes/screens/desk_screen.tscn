@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dfuc8ov1hktsy"]
 
-[ext_resource type="Script" path="res://scenes/screens/desk_screen.gd" id="1_vac8o"]
+[ext_resource type="Script" path="res://scripts/desk_screen.gd" id="1_bgl6w"]
 
 [node name="desk_screen" type="Node2D"]
-script = ExtResource("1_vac8o")
+script = ExtResource("1_bgl6w")
 
 [node name="letterSpawn" type="Marker2D" parent="."]
 position = Vector2(0, -250)

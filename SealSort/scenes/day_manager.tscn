@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccxy0qujvk0ey"]
+
+[ext_resource type="Script" path="res://scripts/day_manager.gd" id="1_c006w"]
+
+[node name="DayManager" type="Node"]
+script = ExtResource("1_c006w")
