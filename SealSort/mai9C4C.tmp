@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://mughb0uc5oyg"]
+
+[ext_resource type="Script" path="res://main_game.gd" id="1_cg2hl"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ipv8m"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_1qsdx"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_sawrr"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_f4ls6"]
+
+[node name="MainGame" type="Node2D"]
+script = ExtResource("1_cg2hl")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DeskView" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="DeskView"]
+modulate = Color(0.805656, 0.558207, 0.762515, 1)
+scale = Vector2(1280, 720)
+texture = SubResource("CanvasTexture_ipv8m")
+
+[node name="DrawerView" type="Node2D" parent="."]
+position = Vector2(0, -720)
+
+[node name="Sprite2D" type="Sprite2D" parent="DrawerView"]
+modulate = Color(0.489833, 0.748559, 0.750109, 1)
+scale = Vector2(1280, 720)
+texture = SubResource("CanvasTexture_1qsdx")
+
+[node name="LeftView" type="Node2D" parent="."]
+position = Vector2(-1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftView"]
+modulate = Color(0.866392, 0.682574, 0.39282, 1)
+scale = Vector2(1280, 720)
+texture = SubResource("CanvasTexture_sawrr")
+
+[node name="RightView" type="Node2D" parent="."]
+position = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="RightView"]
+modulate = Color(0.543437, 0.803886, 0.595441, 1)
+scale = Vector2(1280, 720)
+texture = SubResource("CanvasTexture_f4ls6")

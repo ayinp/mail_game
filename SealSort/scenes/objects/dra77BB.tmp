@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba45us0dxhtql"]
+
+[ext_resource type="Script" path="res://scripts/drawer.gd" id="1_084b4"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_m5ju4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxmqh"]
+size = Vector2(135.899, 64.4935)
+
+[node name="drawer" type="Area2D"]
+script = ExtResource("1_084b4")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(360, 104)
+texture = SubResource("CanvasTexture_m5ju4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-9.53674e-06, -2.26498e-06)
+scale = Vector2(2.64902, 1.61256)
+shape = SubResource("RectangleShape2D_lxmqh")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
